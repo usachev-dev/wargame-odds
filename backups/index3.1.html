@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="oddshammer">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Oddshammer: probability calculator for wargames</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/bootstrap-theme.css" rel="stylesheet">
+	<link href="css/font-awesome.css" rel="stylesheet">
+	<link href="css/bootstrap-social.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <h1>Oddshammer</h1>
+            <h2>Best probability calculator for tabletop wargames</h2>
+        </div>
+    </div>
+</div>
+<div class="container" >
+    <div class="row">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#9thage" data-toggle="tab" role="tab" >9th Age</a></li>
+                <li><a href="#warmachine" data-toggle="tab" role="tab">Warmachine</a></li>
+
+            </ul>
+
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="9thage" ng-controller="ninthageCtrl as ninthage">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <form class="form-horizontal">
+                                <h3>Attack Parameters</h3>
+
+                                <div class="form-group" ng-show="ninthage.showFull">
+                                    <label class="control-label col-xs-12 col-sm-4" for="modelsAttacking" >Models attacking</label>
+                                    <div class="col-xs-12 col-sm-7">
+                                        <input type="number" id="modelsAttacking" class="form-control" min="1"   ng-model="ninthage.modelsAttacking">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" ng-hide="ninthage.randomAttacks">
+                                    <label class="control-label col-xs-3" for="attacksPerModelConstant">Attacks</label>
+                                    <div class="col-xs-7">
+                                        <input type="number" id="attacksPerModelConstant" class="form-control" min="1" max="170" ng-model="ninthage.attacksPerModelConstant">
+                                    </div>
+                                    <div class="col-xs-3 col-sm-2" ng-show="ninthage.showFull">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="randomAttacks"  ng-model="ninthage.randomAttacks">
+                                            <span>Random?</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group" ng-show="ninthage.randomAttacks">
+                                    <label class="control-label col-xs-3" for="attacksPerModelNumberOfDice">Attacks per model</label>
+                                    <div class="col-xs-7">
+                                        <div class="row">
+
+                                            <div class="input-group nopaddingchildren">
+                                                <div class="col-xs-3">
+                                                    <input type="number" class="form-control" min="0"  ng-model="ninthage.attacksPerModelNumberOfDice" id="attacksPerModelNumberOfDice">
+                                                </div>
+                                                <label class="control-label fa fa-times col-xs-1 col-sm-1 formsign" for="attacksPerModelDice"></label>
+
+                                                <div class="col-xs-3">
+                                                    <select id="attacksPerModelDice" ng-model="ninthage.attacksPerModelDice"  class="form-control">
+                                                        <option value="0">0</option>
+                                                        <option value="d3">d3</option>
+                                                        <option value="d6">d6</option>
+                                                    </select>
+                                                </div>
+                                                <label class="control-label fa fa-plus col-xs-1 col-sm-1 formsign" for="attacksPerModelConstant2"></label>
+                                                <div class="col-xs-3">
+                                                    <input type="number" class="form-control" min="0"  ng-model="ninthage.attacksPerModelConstant" id="attacksPerModelConstant2">
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xs-4 col-sm-2">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" name="volley"  ng-model="ninthage.volley">
+                                                    <span>Volley?</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" ng-show="ninthage.volley">
+                                    <label class="control-label col-xs-3" for="volleyMult">Volley</label>
+                                    <div class="col-xs-7">
+                                        <select id="volleyMult" class="form-control"  ng-model="ninthage.volleyMult">
+                                            <option value="2">x2</option>
+                                            <option value="3">x3</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="tohit">To hit score</label>
+                                    <div class="col-xs-5">
+                                        <input type="number" id="tohit" class="form-control" min="1" max="9"  ng-model="ninthage.toHitScoreRequired">
+                                    </div>
+                                    <div class="col-xs-2 ">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="toHitReroll"  ng-model="ninthage.toHitReroll">
+                                            <span>Reroll</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="strength">Strength</label>
+                                    <div class="col-xs-5">
+                                        <input type="number" id="strength" class="form-control" min="1" max="10"  ng-model="ninthage.strength">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="toWoundReroll"  ng-model="ninthage.toWoundReroll">
+                                            <span>Wound reroll</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="armorPiercing">Armor piercing</label>
+                                    <div class="col-xs-7">
+                                        <input type="number" id="armorPiercing" class="form-control" min="0" max="6"  ng-model="ninthage.armorPiercing">
+                                    </div>
+                                </div>
+
+
+
+                                <div class="form-group" ng-show="ninthage.showFull">
+                                    <label class="control-label col-xs-3" for="woundsPerAttackConstant2">Wounds per attack</label>
+                                    <div class="col-xs-5 col-sm-4">
+                                        <input type="number" id="woundsPerAttackConstant2" class="form-control" min="1" ng-model="ninthage.woundsPerAttackConstant">
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="randomWounds"  ng-model="ninthage.randomWounds">
+                                            <span>Random?</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group" ng-show="ninthage.randomWounds">
+                                    <label class="control-label col-xs-3" for="woundsPerAttackNumberOfDice">Wounds per attack</label>
+                                    <div class="col-xs-7">
+                                        <div class="row">
+
+                                            <div class="input-group nopaddingchildren">
+                                                <div class="col-xs-3">
+                                                    <input type="number" class="form-control" min="0"  ng-model="ninthage.woundsPerAttackNumberOfDice" id="woundsPerAttackNumberOfDice">
+                                                </div>
+                                                <label class="control-label fa fa-times col-xs-1 col-sm-1 formsign" for="woundsPerAttackDice"></label>
+
+                                                <div class="col-xs-3">
+                                                    <select id="woundsPerAttackDice" class="form-control"  ng-model="ninthage.woundsPerAttackDice">
+                                                        <option value="0">0</option>
+                                                        <option value="d3">d3</option>
+                                                        <option value="d6">d6</option>
+                                                    </select>
+                                                </div>
+                                                <label class="control-label fa fa-plus col-xs-1 col-sm-1 formsign " for="woundsPerAttackConstant"></label>
+                                                <div class="col-xs-4">
+                                                    <input type="number" class="form-control" min="0"  ng-model="ninthage.woundsPerAttackConstant" id="woundsPerAttackConstant">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3">Special rules</label>
+                                    <div class="col-xs-9">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox"  ng-model="ninthage.lethalStrike" name="lethalStrike">
+                                            <span>Letal strike</span>
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" ng-model="ninthage.poison" name="poison">
+                                            <span>Poison</span>
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" ng-model="ninthage.holy" name="holy">
+                                            <span>Holy attacks</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <h3>Defence of the target</h3>
+                                <div class="form-group" ng-show="ninthage.showFull">
+                                    <label class="control-label col-xs-3" for="modelsDefending">Models</label>
+                                    <div class="col-xs-7">
+                                        <input type="number" id="modelsDefending" class="form-control" min="1"  ng-model="ninthage.modelsDefending">
+                                    </div>
+                                </div>
+
+                                <div class="form-group" ng-show="ninthage.showFull">
+                                    <label class="control-label col-xs-3" for="woundsPerModel">Wounds per model</label>
+                                    <div class="col-xs-7">
+                                        <input type="number" id="woundsPerModel" class="form-control" min="1"  ng-model="ninthage.woundsPerModel">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="toughness">Toughness</label>
+                                    <div class="col-xs-7">
+                                        <input type="number" id="toughness" class="form-control" min="1" max="10"   ng-model="ninthage.toughness">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="armor">Armor</label>
+                                    <div class="col-xs-5">
+                                        <select id="armor" class="form-control"   ng-model="ninthage.armor">
+                                            <option value="7">None</option>
+                                            <option value="1">1+</option>
+                                            <option value="2">2+</option>
+                                            <option value="3">3+</option>
+                                            <option value="4">4+</option>
+                                            <option value="5">5+</option>
+                                            <option value="6">6+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="armorReroll"   ng-model="ninthage.armorReroll">
+                                            <span>Reroll</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="ward">Ward</label>
+                                    <div class="col-xs-5">
+                                        <select id="ward" class="form-control"   ng-model="ninthage.ward">
+                                            <option value="7">None</option>
+                                            <option value="2">2+</option>
+                                            <option value="3">3+</option>
+                                            <option value="4">4+</option>
+                                            <option value="5">5+</option>
+                                            <option value="6">6+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="wardReroll"   ng-model="ninthage.wardReroll">
+                                            <span>Reroll</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-xs-3" for="regen">Regen</label>
+                                    <div class="col-xs-5">
+                                        <select id="regen" class="form-control"  ng-model="ninthage.regen">
+                                            <option value="7">None</option>
+                                            <option value="2">2+</option>
+                                            <option value="3">3+</option>
+                                            <option value="4">4+</option>
+                                            <option value="5">5+</option>
+                                            <option value="6">6+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-2">
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="regenReroll"   ng-model="ninthage.regenReroll">
+                                            <span>Reroll</span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+
+
+                                <button class="btn btn-primary center-block" ng-click="ninthage.calculate()">Calculate</button>
+                            </form>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-8" ng-cloak="true">
+                            <h2>Result Report</h2>
+                            <p>Attack success chance: {{+(ninthage.attackChance*100).toFixed(2)}}%</p>
+                            <p>Average: {{+(ninthage.average).toFixed(2)}} succesful attacks</p>
+                            <p>Variance: {{+ninthage.variance.toFixed(2)}}</p>
+                            <p>Deviation: {{+ninthage.deviation.toFixed(2)}}</p>
+                            <!--<p>Attack success chance: {{ninthage.getAttackChance()}}</p>-->
+                            <div id="graph">
+                                <canvas id="bar" class="chart chart-bar"
+                                        chart-data="ninthage.data"
+                                        chart-labels="ninthage.labels"
+                                        chart-colors="ninthage.colors"
+                                        chart-options="ninthage.graphOptions">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade in" id="warmachine" ng-hide="ninthage.showInput">
+                    Warmachine
+                </div>
+            </div>
+
+        <div class="col-xs-12 col-sm-6 hidden" ng-show="ninthage.showInput">
+            <h2>Input information</h2>
+            <p>Models attacking:  {{ninthage.modelsAttacking}} </p>
+            <p>Attacks per model: {{ninthage.attacksPerModelConstant}}</p>
+            <p>Random attacks? {{ninthage.randomAttacks}}</p>
+            <p>How many dice?  {{ninthage.attacksPerModelNumberOfDice}} What dice? {{ninthage.attacksPerModelDice}} Plus what constant?{{ninthage.attacksPerModelConstant}} </p>
+            <p>Volley? {{ninthage.volley}}</p>
+            <p>Volley multiplicator: {{ninthage.volleyMult}}</p>
+            <p>To hit score required: {{ninthage.toHitScoreRequired}} </p>
+            <p>To hit reroll? {{ninthage.toHitReroll}}</p>
+            <p>Strength: {{ninthage.strength}}</p>
+            <p>Armor piercing: {{ninthage.armorPiercing}} </p>
+            <p>Wounds per attack.{{ninthage.woundsPerAttackConstant}}</p>
+            <p>How many dice? {{ninthage.woundsPerAttackNumberOfDice}} What dice? {{ninthage.woundsPerAttackDice}} Plus what constant? {{ninthage.woundsPerAttackConstant}} </p>
+            <p>Letal strike? {{ninthage.lethalStrike}}</p><p>poison? {{ninthage.poison}}</p><p>Holy? {{ninthage.holy}}</p>
+            <p></p>
+            <p>Models defending {{ninthage.modelsDefending}} </p>
+            <p>Wounds per model {{ninthage.woundsPerModel}} </p>
+            <p>Toughness {{ninthage.toughness}} </p>
+            <p>Armor {{ninthage.armor}} Reroll? {{ninthage.armorReroll}}</p>
+            <p>Ward {{ninthage.ward}} Reroll? {{ninthage.wardReroll}}</p>
+            <p>Regen {{ninthage.regen}} Reroll? {{ninthage.regenReroll}}</p>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script src="js/jquery-3.1.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/Chart.min.js"></script>
+<script src="js/angular-chart.min.js"></script>
+<script src="app/angular-module.js"></script>
+
+
+</body>

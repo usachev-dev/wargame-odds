@@ -1,0 +1,17 @@
+{
+  "name": "WargameOdds",
+  "private": true,
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-useref": "^3.1.2",
+    "gulp-uglify":"^2.0.0",
+    "gulp-if":"^2.0.2",
+    "gulp-cssnano":"^2.1.2",
+    "run-sequence":"^1.2.2",
+    "gulp-imagemin":"^3.1.1"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

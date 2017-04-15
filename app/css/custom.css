@@ -1,0 +1,75 @@
+.tab-content {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
+}
+.nopaddingchildren>* {
+    padding-left:0px;
+    padding-right:0px;
+}
+.graphnopadding {
+    padding:0px;
+}
+.graphnopadding>* {
+    padding:0px;
+}
+.nopaddingchildren {
+    padding-left:15px;
+    padding-right:15px;
+}
+.formsign {
+    text-align: center !important;
+    padding-top:7px;
+}
+
+@font-face {
+    font-family: "molotregular";
+    src: url('../fonts/Molot-webfont.eot');
+    src: url('../fonts/Molot-webfont.eot?#iefix') format('embedded-opentype'),
+    url(../fonts/Molot-webfont.woff) format('woff'),
+    url('../fonts/Molot-webfont.ttf') format('truetype'),
+    url('../fonts/Molot-webfont.svg#molotregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+.jumbotron {
+    background-image:url(../images/dice.jpg) ;
+    background-size: cover;
+    text-shadow: 0px 0px 10px #0f0f0f;
+    color:#e6e6e6;
+
+}
+.jumbotron h1{
+    color:white;
+    font-family: "molotregular";
+
+}
+.jumbotron a:hover {
+    text-decoration: none;
+}
+
+.jumbotron strong {
+    color: #cc0000;
+}
+
+
+.headlink {
+    float:right;
+    text-shadow: 0px 0px 2px #fff, 1px 1px 4px rgba(0,0,0,0.2);
+    background-color:rgba(0, 0, 0, 0.1);
+    padding:5px;
+
+}
+h5 {
+    margin-left:20px;
+    font-weight: bold;
+}
+#happy {
+    font-family:"molotregular";
+    text-align: center;
+    font-size: 30px;
+}
